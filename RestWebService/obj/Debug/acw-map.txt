@@ -1,0 +1,4 @@
+RestWebService.MainActivity, RestWebService;md575c5da6bcc3327d0f732168c8e5d942b.MainActivity
+RestWebService.MainActivity, RestWebService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md575c5da6bcc3327d0f732168c8e5d942b.MainActivity
+RestWebService.MainActivity;md575c5da6bcc3327d0f732168c8e5d942b.MainActivity
+restwebservice.MainActivity;md575c5da6bcc3327d0f732168c8e5d942b.MainActivity
