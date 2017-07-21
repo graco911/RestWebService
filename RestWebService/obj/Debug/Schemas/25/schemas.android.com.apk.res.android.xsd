@@ -2,7 +2,7 @@
 <xs:schema xmlns:android="http://schemas.android.com/apk/res/android" attributeFormDefault="qualified" targetNamespace="http://schemas.android.com/apk/res/android" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>v25</xs:documentation>
-    <xs:documentation>14/07/2017 11:36:09 a. m.</xs:documentation>
+    <xs:documentation>20/07/2017 06:56:43 p. m.</xs:documentation>
   </xs:annotation>
   <xs:attribute name="accessibilityLiveRegion">
     <xs:annotation>
@@ -16943,17 +16943,21 @@
           <xs:restriction base="xs:string">
             <xs:enumeration value="@+id/" />
             <xs:enumeration value="@+id/checkedTextView1" />
+            <xs:enumeration value="@id/buttonGetGPSData" />
             <xs:enumeration value="@id/condLabel" />
             <xs:enumeration value="@id/condSection" />
             <xs:enumeration value="@id/condText" />
             <xs:enumeration value="@id/getSection" />
             <xs:enumeration value="@id/getWeatherButton" />
+            <xs:enumeration value="@id/gpsLabel" />
+            <xs:enumeration value="@id/gpstext" />
             <xs:enumeration value="@id/humidLabel" />
             <xs:enumeration value="@id/humidSection" />
             <xs:enumeration value="@id/humidText" />
             <xs:enumeration value="@id/latLabel" />
             <xs:enumeration value="@id/latSection" />
             <xs:enumeration value="@id/latText" />
+            <xs:enumeration value="@id/linearLayout1" />
             <xs:enumeration value="@id/locationText" />
             <xs:enumeration value="@id/locLabel" />
             <xs:enumeration value="@id/locSection" />

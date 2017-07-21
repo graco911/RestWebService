@@ -9,12 +9,47 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using Android.Locations;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
 
 namespace RestWebService
 {
     [Activity(Label = "RestWebService", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : Activity
+    public class MainActivity : Activity, ILocationListener
     {
+        TextView gpsstatus;
+        EditText latitude;
+        EditText longitude;
+        LocationManager locationManager;
+        ProgressDialog progress;
+        Button buttongps;
+
+        public void OnLocationChanged(Location location)
+        {
+
+            latitude.Text = location.Latitude.ToString();
+            longitude.Text = location.Longitude.ToString();
+
+        }
+
+        public void OnProviderDisabled(string provider)
+        {
+            gpsstatus.Text = "Provider Disabled";
+        }
+
+        public void OnProviderEnabled(string provider)
+        {
+            gpsstatus.Text = "Provider Enabled";
+
+        }
+
+        public void OnStatusChanged(string provider, [GeneratedEnum] Availability status, Bundle extras)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -23,13 +58,23 @@ namespace RestWebService
             SetContentView(Resource.Layout.Main);
 
             //Get latitude/longitude EditBox and Button resources
-            EditText latitude = FindViewById<EditText>(Resource.Id.latText);
-            EditText longitude = FindViewById<EditText>(Resource.Id.longText);
+            latitude = FindViewById<EditText>(Resource.Id.latText);
+            longitude = FindViewById<EditText>(Resource.Id.longText);
             Button button = FindViewById<Button>(Resource.Id.getWeatherButton);
+            buttongps = FindViewById<Button>(Resource.Id.buttonGetGPSData);
+            gpsstatus = FindViewById<TextView>(Resource.Id.gpstext);
+
+            progress = new Android.App.ProgressDialog(this);
+            progress.Indeterminate = true;
+            progress.SetProgressStyle(Android.App.ProgressDialogStyle.Spinner);
+            progress.SetMessage("Espere...");
+            progress.SetCancelable(false);
 
             //When the user click the button
             button.Click += async delegate
             {
+                progress.SetTitle("Obteniendo Datos");
+                progress.Show();
                 var username = "gacc911002";
                 //Get latitude and longitude entered by the user and create a query
                 string url = string.Format("http://api.geonames.org/findNearByWeatherJSON?lat={0}&lng={1}&username={2}", latitude.Text, longitude.Text, username);
@@ -37,9 +82,46 @@ namespace RestWebService
                 //Fecth the weather information asynchronously
                 //parse the results then update the screen:
                 Result result = await FetchWeatherAsync(url);
-                ParseAndDisplay(result);
+                if(result != null)
+                {
+                    ParseAndDisplay(result);
+                    progress.Hide();
+                }
+                else
+                {
+                    progress.Hide();
+                    Toast.MakeText(this, "Error", ToastLength.Long).Show();
+                }
+
             };
+
         }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            locationManager = GetSystemService(Context.LocationService) as LocationManager;
+
+            buttongps.Click += delegate
+            {
+                progress.SetTitle("Esperando Datos del GPS");
+                progress.Show();
+                if (locationManager.AllProviders.Contains(LocationManager.NetworkProvider) && locationManager.IsProviderEnabled(LocationManager.NetworkProvider))
+                {
+                    locationManager.RequestLocationUpdates(LocationManager.NetworkProvider, 2000, 1, this);
+                }
+                else
+                {
+                    progress.Hide();
+                    Toast.MakeText(this, "The Network Provider does not exist or is not enabled!", ToastLength.Long).Show();
+                }
+                progress.Hide();
+            };
+
+
+        }
+
 
         private async Task<Result> FetchWeatherAsync(string url)
         {

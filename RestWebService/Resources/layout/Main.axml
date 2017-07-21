@@ -48,19 +48,27 @@
             android:layout_marginLeft="5dp" />
     </LinearLayout>
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_marginTop="28dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:id="@+id/getSection">
         <Button
+            android:text="Get gps data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/buttonGetGPSData"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <Button
             android:id="@+id/getWeatherButton"
-            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Get Weather" />
+            android:text="Get Weather"
+            android:layout_width="match_parent"
+            android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -153,5 +161,25 @@
             android:layout_height="60dp"
             android:gravity="left"
             android:id="@+id/condText" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:text="GPS Status:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/gpsLabel" />
+        <TextView
+            android:text="Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/gpstext" />
     </LinearLayout>
 </LinearLayout>
